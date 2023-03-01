@@ -22,7 +22,7 @@ do nr=1,nreach
     nrec_heat=heat_cells*(ndays-1)+no_heat
 !
     read(35,*) nnd,ncell &
-        Q_in(no_heat),Q_out(no_heat),Q_dmmy &
+        ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &
         ,depth(no_heat),width(no_heat),u(no_heat)
 !
 !    read(35,'(2i5,3f10.1,2f6.1)' &
