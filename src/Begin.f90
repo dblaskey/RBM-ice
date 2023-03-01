@@ -67,7 +67,7 @@ read(90,*) nreach,flow_cells,heat_cells,source
  allocate(head_cell(nreach))
  allocate(segment_cell(nreach,ns_max))
  allocate(x_dist(nreach,0:ns_max))
-
+ allocate(nseg_out(nreach,heat_cells,nseg_out_num))
 !
  allocate(temp(nreach,-2:ns_max,2))
  allocate(tmp_arry(nn_avg))
