@@ -21,10 +21,14 @@ do nr=1,nreach
     nrec_flow=flow_cells*(ndays-1)+no_flow
     nrec_heat=heat_cells*(ndays-1)+no_heat
 !
-    read(35,'(2i5,3f10.1,2f6.1)' &
-           ,rec=nrec_flow) nnd,ncell &
-           ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &  
-           ,depth(no_heat),u(no_heat)
+    read(35,*) nnd,ncell &
+        Q_in(no_heat), Q_out(no_heat),Q_dmmy &
+        ,depth(no_heat),width(no_heat),u(no_heat)
+!
+!    read(35,'(2i5,3f10.1,2f6.1)' &
+!           ,rec=nrec_flow) nnd,ncell &
+!           ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &  
+!           ,depth(no_heat),u(no_heat)
 !
     if (depth(no_heat).lt.0.5) depth(no_heat) = 0.5
 !
@@ -35,16 +39,23 @@ do nr=1,nreach
 !
     Q_diff(no_heat) = Q_out(no_heat) - Q_in(no_heat)
     Q_diff(no_heat) = MAX1(Q_diff(no_heat),0.1)
-!    
-    read(36,'(i5,2f7.2,2f10.1,2f7.2,f5.2)' &
-           ,rec=nrec_heat) ncell &
-           ,dbt(no_heat),ea(no_heat) &
-           ,QNS(no_heat),QNA(no_heat),ddmmy &
-           ,press(no_heat),wind(no_heat)
+!
+!
+    read(36,*) ncell &
+        ,dbt(no_heat),ea(no_heat) &
+        ,QNS(no_heat),QNA(no_heat),ddmmy &
+        ,press(no_heat),wind(no_heat)
+!
+!
+!    read(36,'(i5,2f7.2,2f10.1,2f7.2,f5.2)' &
+!           ,rec=nrec_heat) ncell &
+!           ,dbt(no_heat),ea(no_heat) &
+!           ,QNS(no_heat),QNA(no_heat),ddmmy &
+!           ,press(no_heat),wind(no_heat)
 !   
   if(ncell.ne.no_heat) write(*,*) 'Heat file error',nyear,nd,ncell,no_heat
 !
-!  Added variable ndelta (UW_JRY_2011/03/15
+!  Added variable ndelta (UW_JRY_2011/03/15)
 !
     delta_n=ndelta(ncell)
 ! 
@@ -75,8 +86,7 @@ do nr=1,nreach
   Q_out(no_heat)=Q_out(no_heat-1)
 !  Q_trib(nr)=Q_out(no_heat)    
   nrec_heat=heat_cells*(ndays-1)+no_heat
-  read(36,'(i5,2f7.2,2f10.1,2f7.2,f5.2)' &
-         ,rec=nrec_heat) ncell &
+  read(36,*) ncell &
          ,dbt(no_heat),ea(no_heat) &   
          ,QNS(no_heat),QNA(no_heat),ddmmy &
          ,press(no_heat),wind(no_heat)
