@@ -7,17 +7,7 @@ use Block_Network
 !
 Implicit None
 ! 
-character (len=
-
-
-
-
-
-
-
-
-
-0):: temp_file
+character (len=200):: temp_file
 character (len=200):: outPrefix
 character (len=200):: flowPrefix
 character (len=200):: heatPrefix
