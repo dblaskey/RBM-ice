@@ -33,7 +33,7 @@ do nr=1,nreach
     if (depth(no_heat).lt.0.5) depth(no_heat) = 0.5
 !
     if(u(no_heat).lt.0.01) u(no_heat)=0.01
-    if(ncell.ne.no_heat) write(*,*) 'Flow file error',nyear,nd,ncell,no_heat             
+    if(ncell.ne.no_heat) write(*,*) 'Flow file error',ncell,no_heat             
 !    
     Q_in(no_heat) = MAX1(Q_in(no_heat),1.0)
 !
@@ -53,7 +53,7 @@ do nr=1,nreach
 !           ,QNS(no_heat),QNA(no_heat),ddmmy &
 !           ,press(no_heat),wind(no_heat)
 !   
-  if(ncell.ne.no_heat) write(*,*) 'Heat file error',nyear,nd,ncell,no_heat
+  if(ncell.ne.no_heat) write(*,*) 'Heat file error',ncell,no_heat
 !
 !  Added variable ndelta (UW_JRY_2011/03/15)
 !
