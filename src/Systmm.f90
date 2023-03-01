@@ -18,6 +18,7 @@ character (len=200):: year_file_id
 integer          :: ncell, nc_head
 integer          :: nd, ndd, nr, ns
 integer          :: nn, nobs, nyear, nd_year, ntmp
+integer          :: nseg_temp
 !
 real             :: hpd, xd, xdd, xwpd, xd_year, year
 real             :: q_rslt,T_mohseni,xn_avg
