@@ -1,5 +1,5 @@
 !
-      PROGRAM RBM10_VIC
+      PROGRAM RBM10_mizu
 !
 !     Dynamic river basin model for simulating water quality in
 !     branching river systems with freely-flowing river segments. 
@@ -45,8 +45,8 @@ implicit none
 !
 character (len=200 )           :: inPrefix
 character (len=200 )           :: outPrefix
-character (len=200 )           :: flow_file
-character (len=200 )           :: heat_file
+character (len=200 )           :: flowPrefix
+character (len=200 )           :: heatPrefix
 character (len=200 )           :: net_file
 character (len=200 )           :: param_file
 character (len=200 )           :: temp_file
@@ -81,30 +81,30 @@ spatial_file  = TRIM(outPrefix)//'.Spat'
 write(*,*) 'Spatial file: ',spatial_file 
 open(22,file=TRIM(spatial_file),status='unknown') ! (changed by JRY 02/09/2022)
 !        
-temp_file     = TRIM(outPrefix)//'.Temp'
+!temp_file     = TRIM(outPrefix)//'.Temp'
 write(*,*) 'Network file    : ',net_file
 write(*,*) 'Parameter file  : ',param_file!
 write(*,*) 'Temperature file: ',temp_file
 !
-OPEN(UNIT=20,FILE=TRIM(temp_file),STATUS='UNKNOWN')
+!OPEN(UNIT=20,FILE=TRIM(temp_file),STATUS='UNKNOWN')
 !
 OPEN(UNIT=90,FILE=TRIM(net_file),STATUS='OLD')
 !
 !     Read header information from control file
 !
 read(90,*)
-read(90,'(A)') flow_file
+read(90,'(A)') flowPrefix
 !
 !     Open file with hydrologic data
 !
-open(unit=35,FILE=TRIM(flow_file) ,FORM='FORMATTED',ACCESS='DIRECT' ,RECL=52,STATUS='old')
+!open(unit=35,FILE=TRIM(flow_file) ,FORM='FORMATTED',ACCESS='DIRECT' ,RECL=52,STATUS='old')
 !
 !
-read(90,'(A)') heat_file
+read(90,'(A)') heatPrefix
 !
 !     Open file with meteorologic data
 !     
-open(unit=36,FILE=TRIM(heat_file) ,FORM='FORMATTED',ACCESS='DIRECT' ,RECL=58,STATUS='old')
+!open(unit=36,FILE=TRIM(heat_file) ,FORM='FORMATTED',ACCESS='DIRECT' ,RECL=58,STATUS='old')
 !
 !     Call systems programs to get started
 !
@@ -119,7 +119,7 @@ CALL BEGIN(spatial_file)
 !
 !     SUBROUTINE SYSTMM performs the simulations
 !
-CALL SYSTMM ! (WUR_WF_MvV_2011/01/05)
+CALL SYSTMM(flowPrefix,heatPrefix,outPrefix) ! (Updated DJB 3/1/23)
 !
 !     Close files after simulation is complete
 !
@@ -129,4 +129,4 @@ CLOSE(35)
 CLOSE(36)
 CLOSE(90)
 STOP
-END PROGRAM RBM10_VIC
+END PROGRAM RBM10_mizu
