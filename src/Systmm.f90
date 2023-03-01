@@ -93,17 +93,7 @@ do nyear=start_year,end_year
   write(year_file_id, '(i0)') nyear
   temp_file=TRIM(outPrefix)//'_'//TRIM(ADJUSTL(year_file_id))//'.temp'
   open(20,file=TRIM(temp_file),status='unknown')
-  !
-  !     Open file with yearly hydrologic data (Added by DJB 3/1/23)
-  !
-  flow_file=TRIM(flowPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
-  open(unit=35,FILE=TRIM(flow_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
-  !
-  !     Open file with yearly meteorologic data (Added by DJB 3/1/23)
-  !
-  heat_file=TRIM(heatPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
-  open(unit=36,FILE=TRIM(heat_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
-  !
+!
   nd_year=365
   if (mod(nyear,4).eq.0) nd_year=366
 !
@@ -122,6 +112,18 @@ do nyear=start_year,end_year
       DO ndd=1,nwpd
       xdd = ndd
       time=year+(xd+(xdd-0.5)*hpd)/xd_year 
+      
+  !
+  !     Open file with yearly hydrologic data (Added by DJB 3/1/23)
+  !
+      flow_file=TRIM(flowPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+      open(unit=35,FILE=TRIM(flow_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+  !
+  !     Open file with yearly meteorologic data (Added by DJB 3/1/23)
+  !
+      heat_file=TRIM(heatPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+      open(unit=36,FILE=TRIM(heat_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+  !
 !
 ! Read the hydrologic and meteorologic forcings
 !
