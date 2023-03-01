@@ -1,4 +1,4 @@
-SUBROUTINE Read_Forcing(nyear,nd)
+SUBROUTINE Read_Forcing
 !
 USE Block_Energy
 USE Block_Hydro
@@ -6,7 +6,7 @@ USE Block_Network
 ! 
 IMPLICIT NONE
 !
-integer :: nd,nyear
+!integer :: nd,nyear
 integer :: nc,ncell,nnd,no_flow,no_heat,nr,nrec_flow,nrec_heat
 real    :: ddmmy,Q_avg,Q_dmmy
 
