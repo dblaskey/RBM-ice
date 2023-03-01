@@ -6,7 +6,7 @@
 #
 # Defining variables
 #
-objects = rbm10_VIC.o Begin.o Systmm.o Particle_Track.o \
+objects = rbm10_mizu.o Begin.o Systmm.o Particle_Track.o \
 	Julian.o Leap_Year.o Read_Forcing.o \
 	Ice_Free.o Energy_ICE.o Energy_NO_ICE.o \
 	Block_Energy.o Block_Hydro.o Block_Ice_Snow.o Block_Network.o\
@@ -15,7 +15,7 @@ objects = rbm10_VIC.o Begin.o Systmm.o Particle_Track.o \
 f90comp = gfortran -Wall -g3 -fbounds-check
 # Makefile
 rbm10_VIC: $(objects)
-	$(f90comp) -o rbm10_VIC $(objects)
+	$(f90comp) -o rbm10_mizu $(objects)
 Block_Energy.o: Block_Energy.f90
 	$(f90comp) -c Block_Energy.f90
 block_energy.mod: Block_Energy.f90
@@ -64,10 +64,10 @@ Leap_Year.o: Leap_Year.f90
 Water_Balance.o: block_hydro.mod block_network.mod Water_Balance.f90
 	$(f90comp) -c Water_Balance.f90
 rbm10_VIC.o: rbm10_VIC.f90
-	$(f90comp) -c rbm10_VIC.f90
+	$(f90comp) -c rbm10_mizu.f90
 
 # Cleaning everything
 clean:
 	rm block_energy.mod block_hydro.mod block_network.mod\
-           rbm10_VIC
+           rbm10_mizu
 	rm $(objects)
