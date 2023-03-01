@@ -63,7 +63,7 @@ Leap_Year.o: Leap_Year.f90
 #	$(f90comp) -c tntrp.f90
 Water_Balance.o: block_hydro.mod block_network.mod Water_Balance.f90
 	$(f90comp) -c Water_Balance.f90
-rbm10_VIC.o: rbm10_VIC.f90
+rbm10_mizu.o: rbm10_mizu.f90
 	$(f90comp) -c rbm10_mizu.f90
 
 # Cleaning everything
