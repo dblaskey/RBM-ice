@@ -187,7 +187,7 @@ do nyear=start_year,end_year
             if (nseg_out(nr,ncell,nseg_temp).eq.ns) then
                 call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
                    Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
-            if (ncell.eq.1827) write(89,*)nyear,nd,nr,ncell,ns,T_0,temp_equil,time_equil
+            if (ncell.eq.1827) write(89,*)nyear,nd,nr,ncell,ns,T_0
             end if
         end do
 !
