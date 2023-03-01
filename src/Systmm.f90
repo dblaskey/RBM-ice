@@ -1,4 +1,4 @@
-SUBROUTINE SYSTMM
+SUBROUTINE SYSTMM(flowPrefix,heatPrefix,outPrefix)
 !
 use Block_Energy
 use Block_Hydro
@@ -7,6 +7,23 @@ use Block_Network
 !
 Implicit None
 ! 
+character (len=
+
+
+
+
+
+
+
+
+
+0):: temp_file
+character (len=200):: outPrefix
+character (len=200):: flowPrefix
+character (len=200):: heatPrefix
+character (len=200):: flow_file
+character (len=200):: heat_file
+character (len=200):: year_file_id
 !
 integer          :: ncell, nc_head
 integer          :: nd, ndd, nr, ns
@@ -56,7 +73,7 @@ nstrt_elm=0
 temp=0.5
 ! Initialize headwaters temperatures
 !
-T_head=4.0
+T_head=0.1 ! Updated for Alaska by DJB 3/1/23
 !
 !
 ! Initialize smoothed air temperatures for estimating headwaters temperatures
@@ -80,6 +97,22 @@ hpd=1./xwpd
 !
 do nyear=start_year,end_year
   write(*,*) ' Simulation Year - ',nyear,start_year,end_year
+  !
+  ! Open yearly output file (Added by DJB 3/1/23)
+  write(year_file_id, '(i0)') nyear
+  temp_file=TRIM(outPrefix)//'_'//TRIM(ADJUSTL(year_file_id))//'.temp'
+  open(20,file=TRIM(temp_file),status='unknown')
+  !
+  !     Open file with yearly hydrologic data (Added by DJB 3/1/23)
+  !
+  flow_file=TRIM(flowPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+  open(unit=35,FILE=TRIM(flow_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+  !
+  !     Open file with yearly meteorologic data (Added by DJB 3/1/23)
+  !
+  heat_file=TRIM(heatPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+  open(unit=36,FILE=TRIM(heat_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+  !
   nd_year=365
   if (mod(nyear,4).eq.0) nd_year=366
 !
@@ -181,6 +214,9 @@ do nyear=start_year,end_year
 !     End of main loop (ND=1,365/366)
 !
         end do
+        CLOSE(20) ! Close yearly output file (Added DJB 3/1/23)
+        CLOSE(35) ! Close yearly flow file (Added DJB 3/1/23)
+        CLOSE(36) ! Close yearly heat file (Added DJB 3/1/23)
 !
 !     End of year loop
 !
