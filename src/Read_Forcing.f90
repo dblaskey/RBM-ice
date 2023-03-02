@@ -53,7 +53,7 @@ do nr=1,nreach
 !           ,QNS(no_heat),QNA(no_heat),ddmmy &
 !           ,press(no_heat),wind(no_heat)
 !   
-  if(ncell.ne.no_heat) write(*,*) 'Heat file error',ncell,no_heat
+    if(ncell.ne.no_heat) write(*,*) 'Heat file error',ncell,no_heat
 !
 !  Added variable ndelta (UW_JRY_2011/03/15)
 !
@@ -72,7 +72,7 @@ do nr=1,nreach
            'Travel time=',dt(no_heat) &
             , '> dt_comp at node -',no_heat
   end do
-    if(ncell.ne.no_heat) write(*,*) 'Flow file error',ncell,no_heat 
+!    if(ncell.ne.no_heat) write(*,*) 'Flow file error',ncell,no_heat 
 
 !
 ! Tributary flow is Q_out from the next to the last cell
