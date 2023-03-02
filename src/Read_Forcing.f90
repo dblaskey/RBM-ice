@@ -21,7 +21,7 @@ do nr=1,nreach
     nrec_flow=flow_cells*(ndays-1)+no_flow
     nrec_heat=heat_cells*(ndays-1)+no_heat
 !
-    read(35,*) nnd,ncell &
+    read(35,*,rec=nrec_flow) nnd,ncell &
         ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &
         ,depth(no_heat),width(no_heat),u(no_heat)
 !
@@ -41,7 +41,7 @@ do nr=1,nreach
     Q_diff(no_heat) = MAX1(Q_diff(no_heat),0.1)
 !
 !
-    read(36,*) ncell &
+    read(36,*,rec=nrec_heat) ncell &
         ,dbt(no_heat),ea(no_heat) &
         ,QNS(no_heat),QNA(no_heat),ddmmy &
         ,press(no_heat),wind(no_heat)
