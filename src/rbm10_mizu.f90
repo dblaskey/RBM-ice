@@ -83,8 +83,8 @@ spatial_file  = TRIM(outPrefix)//'.Spat'
 !        
 !temp_file     = TRIM(outPrefix)//'.Temp'
 write(*,*) 'Network file    : ',net_file
-write(*,*) 'Parameter file  : ',param_file!
-write(*,*) 'Temperature file: ',temp_file
+!write(*,*) 'Parameter file  : ',param_file!
+!write(*,*) 'Temperature file: ',temp_file
 !
 !OPEN(UNIT=20,FILE=TRIM(temp_file),STATUS='UNKNOWN')
 !
