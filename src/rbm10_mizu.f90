@@ -78,8 +78,8 @@ net_file      = TRIM(inPrefix)//'_Network'
 param_file    = TRIM(inPrefix)//'_Parameters'
 spatial_file  = TRIM(outPrefix)//'.Spat'
 !
-write(*,*) 'Spatial file: ',spatial_file 
-open(22,file=TRIM(spatial_file),status='unknown') ! (changed by JRY 02/09/2022)
+!write(*,*) 'Spatial file: ',spatial_file 
+!open(22,file=TRIM(spatial_file),status='unknown') ! (changed by JRY 02/09/2022)
 !        
 !temp_file     = TRIM(outPrefix)//'.Temp'
 write(*,*) 'Network file    : ',net_file
