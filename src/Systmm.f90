@@ -110,19 +110,19 @@ do nyear=start_year,end_year
 !    Daily period loop starts
 !
       DO ndd=1,nwpd
-      xdd = ndd
-      time=year+(xd+(xdd-0.5)*hpd)/xd_year 
+        xdd = ndd
+        time=year+(xd+(xdd-0.5)*hpd)/xd_year 
       
   !
   !     Open file with yearly hydrologic data (Added by DJB 3/1/23)
   !
-      flow_file=TRIM(flowPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
-      open(unit=35,FILE=TRIM(flow_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+       flow_file=TRIM(flowPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+       open(unit=35,FILE=TRIM(flow_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
   !
   !     Open file with yearly meteorologic data (Added by DJB 3/1/23)
   !
-      heat_file=TRIM(heatPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
-      open(unit=36,FILE=TRIM(heat_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
+        heat_file=TRIM(heatPrefix)//'_'//TRIM(ADJUSTL(year_file_id))
+        open(unit=36,FILE=TRIM(heat_file), ACCESS='SEQUENTIAL',FORM='FORMATTED', STATUS='old')
   !
 !
 ! Read the hydrologic and meteorologic forcings
@@ -134,49 +134,49 @@ do nyear=start_year,end_year
 !
 !     Begin cycling through the reaches
 !
-      do nr=1,nreach
+        do nr=1,nreach
 !
-        nc_head=segment_cell(nr,1)
+          nc_head=segment_cell(nr,1)
 !
 !     Determine smoothing parameters (UW_JRY_2011/06/21)
 !
 !        rminsmooth=1.0-smooth_param(nr)
 !        T_smth(nr)=rminsmooth*T_smth(nr)+smooth_param(nr)*dbt(nc_head)
-      do nn = 2,nn_avg
-        tmp_arry(nn) = T_smth(nr,nn-1)
-        tmp_arry(1) = dbt(nr)
-        T_Mohseni = sum(tmp_arry)/xn_avg
-      end do
-      do nn = 1,nn_avg
-        T_smth(nr,nn) = tmp_arry(nn)
-      end do
+          do nn = 2,nn_avg
+            tmp_arry(nn) = T_smth(nr,nn-1)
+            tmp_arry(1) = dbt(nr)
+            T_Mohseni = sum(tmp_arry)/xn_avg
+          end do
+          do nn = 1,nn_avg
+            T_smth(nr,nn) = tmp_arry(nn)
+          end do
 
 !     
 !     Variable Mohseni parameters (UW_JRY_2011/06/16)
 ! 
-        T_head(nr)=mu(nr)+(alphaMu(nr) &
-                  /(1.+exp(gmma(nr)*(beta(nr)-T_Mohseni)))) 
-!
-      temp(nr,0,n1)=T_head(nr)
-      temp(nr,1,n1)=T_head(nr)
-      x_bndry=x_dist(nr,0) - 1.0
+          T_head(nr)=mu(nr)+(alphaMu(nr) &
+                      /(1.+exp(gmma(nr)*(beta(nr)-T_Mohseni)))) 
+    !
+          temp(nr,0,n1)=T_head(nr)
+          temp(nr,1,n1)=T_head(nr)
+          x_bndry=x_dist(nr,0) - 1.0
 !
 ! Begin cell computational loop
 !
-        do ns=1,no_celm(nr)  
+          do ns=1,no_celm(nr)  
 !
-          ncell = segment_cell(nr,ns)
+            ncell = segment_cell(nr,ns)
 !
-          if (ice_temp(nr,ns,n2) .gt. -0.01) then
-            ICE(ncell) = 102
-            ice_thick(nr,ns,n2) = 0.000
+            if (ice_temp(nr,ns,n2) .gt. -0.01) then
+              ICE(ncell) = 102
+              ice_thick(nr,ns,n2) = 0.000
 !           
-             call Ice_Free (nd,nr,ns,ncell,nc_head)
-          else
+               call Ice_Free (nd,nr,ns,ncell,nc_head)
+            else
 !
-             call ENERGY_ICE (q_rslt, nd, ncell, nr, ns)
+               call ENERGY_ICE (q_rslt, nd, ncell, nr, ns)
 !
-          end if
+            end if
 !
 !
 !   Write all temperature output UW_JRY_11/08/2013
@@ -186,20 +186,20 @@ do nyear=start_year,end_year
 !   value of ndelta (now a vector)(UW_JRY_11/08/2013)
 !
 !        if (ice_thick(nr,ns,n2) .lt. 0.009) ICE(ncell) = 100.
-        do nseg_temp=1,nseg_out_num
-            if (nseg_out(nr,ncell,nseg_temp).eq.ns) then
-                call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
-                   Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
-            !if (ncell.eq.1827) write(89,*)nyear,nd,nr,ncell,ns,T_0
-            end if
-        end do
+            do nseg_temp=1,nseg_out_num
+                if (nseg_out(nr,ncell,nseg_temp).eq.ns) then
+                    call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
+                       Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
+                !if (ncell.eq.1827) write(89,*)nyear,nd,nr,ncell,ns,T_0
+                end if
+            end do
 !
 !        call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
 !                   Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
 !
 !     End of computational element loop
 !
-              end do
+            end do
 !     End of reach loop
 !
             end do
