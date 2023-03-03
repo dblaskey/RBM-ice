@@ -25,7 +25,7 @@ do nr=1,nreach
         ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &
         ,depth(no_heat),width(no_heat),u(no_heat)
     
-    write(45,*) 'Errors Because' nnd,nr,nc,ncell,no_heat,no_flow 
+    write(45,*) 'Flow files',nnd,nr,nc,ncell,no_heat,no_flow 
 !
 !    read(35,'(2i5,3f10.1,2f6.1)' &
 !           ,rec=nrec_flow) nnd,ncell &
@@ -54,8 +54,8 @@ do nr=1,nreach
 !           ,dbt(no_heat),ea(no_heat) &
 !           ,QNS(no_heat),QNA(no_heat),ddmmy &
 !           ,press(no_heat),wind(no_heat)
-!   
-    if(ncell.ne.no_heat) write(*,*) 'Heat file error',ncell,no_heat
+!  if(ncell.ne.no_heat) write(*,*) 'Heat file error',ncell,no_heat
+write(46,*) 'Energy files',nnd,nr,nc,ncell,no_heat,no_flow 
 !
 !  Added variable ndelta (UW_JRY_2011/03/15)
 !
