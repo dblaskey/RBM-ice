@@ -121,6 +121,7 @@ else
       depth(no_heat)=depth(no_heat-1)
       width(no_heat)=width(no_heat-1)
       dt(no_heat)=dx(ncell)/u(no_heat)
+  end if
 end do
 !
 ! Call the water balance subroutine
