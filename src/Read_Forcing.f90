@@ -25,7 +25,7 @@ do nr=1,nreach
         ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &
         ,depth(no_heat),width(no_heat),u(no_heat)
     
-    write(*,*) 'Flow file',nnd,ncell,Q_in
+    write(*,*) 'Flow file',nnd,ncell,no_heat,no_flow,Q_in
 !
 !    read(35,'(2i5,3f10.1,2f6.1)' &
 !           ,rec=nrec_flow) nnd,ncell &
