@@ -186,13 +186,13 @@ do nyear=start_year,end_year
 !   value of ndelta (now a vector)(UW_JRY_11/08/2013)
 !
 !        if (ice_thick(nr,ns,n2) .lt. 0.009) ICE(ncell) = 100.
-            do nseg_temp=1,nseg_out_num
-                if (nseg_out(nr,ncell,nseg_temp).eq.ns) then
+!            do nseg_temp=1,nseg_out_num
+!                if (nseg_out(nr,ncell,nseg_temp).eq.ns) then
                     call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
                        Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
                 !if (ncell.eq.1827) write(89,*)nyear,nd,nr,ncell,ns,T_0
-                end if
-            end do
+ !               end if
+ !           end do
 !
 !        call WRITE(time,nd,nr,ncell,ns,T_0,T_head(nr),dbt(ncell),depth(ncell), &
 !                   Q_in(ncell),ice_thick(nr,ns,n2),ICE(ncell))
