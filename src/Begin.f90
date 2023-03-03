@@ -162,10 +162,10 @@ do nr=1,nreach
 !
 ! Here we define the output segments
 !
-    do nseg_temp=1,nseg_out_num
-        nseg_out(nr,ncell,nseg_temp)=nseg_cum+ndelta(ncell)*nseg_temp/(nseg_out_num) 
-    end do
-    nseg_cum = nseg_cum+ndelta(ncell)
+!    do nseg_temp=1,nseg_out_num
+!        nseg_out(nr,ncell,nseg_temp)=nseg_cum+ndelta(ncell)*nseg_temp/(nseg_out_num) 
+!    end do
+!    nseg_cum = nseg_cum+ndelta(ncell)
 !
     nndlta=0
 200 continue
@@ -177,12 +177,12 @@ do nr=1,nreach
 !
 !   Write Segment List for mapping to temperature output (UW_JRY_2008/11/19)
 !
-    do nseg_temp=1,nseg_out_num
-        if (nseg_out(nr,ncell,nseg_temp).eq.nseg) then
+!    do nseg_temp=1,nseg_out_num
+!        if (nseg_out(nr,ncell,nseg_temp).eq.nseg) then
             open(22,file=TRIM(spatial_file),status='unknown') ! (changed by WUR_WF_MvV_2011/01/05)
             write(22,'(4i6,1x,a8,1x,a10,i5)') nr,ncell,nrow,ncol,lat,long,nseg_temp
-        end if
-    end do
+!        end if
+!    end do
 !
 !  Added variable ndelta  (UW_JRY_2011/03/15)
 !
