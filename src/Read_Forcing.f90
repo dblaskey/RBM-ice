@@ -85,9 +85,9 @@ write(46,*) 'Energy files',nnd,nr,nc,ncell,no_heat,no_flow
 !       Read the meteorology for the last cell, but not the flow
 !
   no_heat=no_heat+1 
-  Q_out(no_heat)=Q_out(no_heat-1)
+!  Q_out(no_heat)=Q_out(no_heat-1)
 !  Q_trib(nr)=Q_out(no_heat)    
-  nrec_heat=heat_cells*(ndays-1)+no_heat
+!  nrec_heat=heat_cells*(ndays-1)+no_heat
   read(36,*) ncell &
          ,dbt(no_heat),ea(no_heat) &   
          ,QNS(no_heat),QNA(no_heat),ddmmy &
@@ -97,12 +97,30 @@ write(46,*) 'Energy files',nnd,nr,nc,ncell,no_heat,no_flow
 !  modified so they do not
 !  take the values of the segment to which it is tributary
 !
-
-  Q_in(no_heat)=Q_out(no_heat-1)
-  u(no_heat)=u(no_heat-1)
-  depth(no_heat)=depth(no_heat-1)
-  width(no_heat)=width(no_heat-1)
-  dt(no_heat)=dx(ncell)/u(no_heat)
+if (nr .eq. nreach .and. nc .eq. no_cells(nr)) then
+    read(35,*) nnd,ncell &
+        ,Q_in(no_heat),Q_out(no_heat),Q_dmmy &
+        ,depth(no_heat),width(no_heat),u(no_heat)
+    Q_trib(nr)=0
+    Q_in(no_heat)=Q_out(no_heat-1)
+    dt(no_heat)=dx(ncell)/u(no_heat)
+else
+    Q_out(no_heat)=Q_out(no_heat-1)
+            !
+            ! Tributary flow from this reach equals Q_out for this cell
+            !
+     Q_trib(nr)=Q_out(no_heat)
+     nrec_heat=heat_cells*(ndays-1)+no_heat
+            !
+            !  The flow and hydraulics for the last cell has to be
+            !  modified so they do not
+            !  take the values of the segment to which it is tributary
+            !
+      Q_in(no_heat)=Q_out(no_heat-1)
+      u(no_heat)=u(no_heat-1)
+      depth(no_heat)=depth(no_heat-1)
+      width(no_heat)=width(no_heat-1)
+      dt(no_heat)=dx(ncell)/u(no_heat)
 end do
 !
 ! Call the water balance subroutine
