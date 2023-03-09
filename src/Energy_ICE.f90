@@ -15,10 +15,13 @@ real                      :: Ltnt_Heat,Sens_Heat
 real                      :: cndctvy,delta_ice,LW_back,LW_in,SW_in
 real                      :: dvsr,delta_Temp
 real                      :: T_B,T_ice,T_p,T_p_cubed,T_riv,T_srfc
+real                      :: snow_p,cndctvySI,snow_cndctvy,thickS,T_S
+real                      :: delta_snow,lvfs 
 !
 real,parameter            :: thick0 = 0.8
 !
   T_B = 0.0
+  T_S = 0.0
   T_srfc = ice_temp(nr,ns,n1)
   T_p = T_srfc + T_Kelvin
   T_p_cubed = T_p*T_p*T_p
@@ -37,7 +40,7 @@ real,parameter            :: thick0 = 0.8
 
 if (snow_p .gt. 0.01) then ! Need to allocate snow_p
   SW_in = (1.0-ice_albedo)*QNS(ncell)
-  cndctvySI = ice_cndctvy*snow_cndctvy/(thick0*snow_cndctvy               & ! Allocated cndctvySI, snow_cndctvy, thickS
+  cndctvySI = ice_cndctvy*snow_cndctvy/(thick0*snow_cndctvy)               & ! Allocated cndctvySI, snow_cndctvy, thickS
               + thickS*ice_cndctvy
   dvsr = 4.0*epsilon*Stfn_Bltz*T_p_cubed + cndctvySI 
   delta_Temp = (Sens_Heat + Ltnt_Heat + LW_in + SW_in - LW_back           &
