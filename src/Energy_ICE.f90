@@ -39,7 +39,7 @@ real,parameter            :: thick0 = 0.8
 !
 
 if (snow_p .gt. 0.01) then ! Need to allocate snow_p
-  SW_in = (1.0-ice_albedo)*QNS(ncell)
+  SW_in = (1.0-snow_albedo)*QNS(ncell)
   cndctvySI = ice_cndctvy*snow_cndctvy/(thick0*snow_cndctvy)               & ! Allocated cndctvySI, snow_cndctvy, thickS
               + thickS*ice_cndctvy
   dvsr = 4.0*epsilon*Stfn_Bltz*T_p_cubed + cndctvySI 
@@ -55,10 +55,10 @@ if (snow_p .gt. 0.01) then ! Need to allocate snow_p
     delta_snow = dt_comp*(Sens_Heat + Ltnt_Heat + LW_in + SW_in - LW_back)/lvfs ! ALLOCATE DELTA SNOW, LVFS
     snow_thick(nr,ns,n2) = snow_thick(nr,ns,n1) - delta_snow                
     snow_thick(nr,ns,n2) = AMAX1(snow_thick(nr,ns,n2),0.0)
-  else ! SHOULD AT LEAST UPDATE TO ACCOUNT FOR INSULATION OF ICE
+  else ! SHOULD AT LEAST UPDATE TO ACCOUNT FOR INSULATION OF ICE (changed to conductivity of snow and ice)
     T_ice = ice_temp(nr,ns,n1)
     T_riv = temp(nr,ns,n1)
-    delta_ice = dt_comp*cndctvy*(T_riv-T_ice)/lvf
+    delta_ice = dt_comp*cndctvySI*(T_riv-T_ice)/lvf
     ice_thick(nr,ns,n2) = ice_thick(nr,ns,n1) + delta_ice
     ice_thick(nr,ns,n2) = AMIN1(ice_thick(nr,ns,n2),depth(ncell))
     ICE(ncell) = 200.
