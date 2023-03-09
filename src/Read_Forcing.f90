@@ -88,7 +88,7 @@ do nr=1,nreach
   read(36,*) ncell &
          ,dbt(no_heat),ea(no_heat) &   
          ,QNS(no_heat),QNA(no_heat),ddmmy &
-         ,press(no_heat),wind(no_heat)
+         ,press(no_heat),wind(no_heat),snow_p(no_heat)
 !
 !  The flow and hydraulics for the last cell has to be 
 !  modified so they do not
@@ -117,6 +117,7 @@ else
       u(no_heat)=u(no_heat-1)
       depth(no_heat)=depth(no_heat-1)
       width(no_heat)=width(no_heat-1)
+      snow_p(no_heat)=snow_p(no_heat-1)
       dt(no_heat)=dx(ncell)/u(no_heat)
   end if
 end do
