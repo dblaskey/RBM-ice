@@ -44,7 +44,7 @@ do nr=1,nreach
     read(36,*) ncell &
         ,dbt(no_heat),ea(no_heat) &
         ,QNS(no_heat),QNA(no_heat),ddmmy &
-        ,press(no_heat),wind(no_heat)
+        ,press(no_heat),wind(no_heat),snow_p(no_heat)
 !
 !
 !    read(36,'(i5,2f7.2,2f10.1,2f7.2,f5.2)' &
