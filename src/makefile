@@ -14,7 +14,7 @@ objects = rbm10_mizu.o Begin.o Systmm.o Particle_Track.o \
 # GNU F90 compiler	  
 f90comp = gfortran -Wall -g3 -fbounds-check
 # Makefile
-rbm10_VIC: $(objects)
+rbm10_mizu: $(objects)
 	$(f90comp) -o rbm10_mizu $(objects)
 Block_Energy.o: Block_Energy.f90
 	$(f90comp) -c Block_Energy.f90
