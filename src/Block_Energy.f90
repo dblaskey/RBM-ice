@@ -29,6 +29,10 @@ module Block_Energy
 !  
   real, dimension(:), allocatable     :: press 
 !
+!   Snow depth, m
+!  
+  real, dimension(:), allocatable     :: snow_p 
+!
 ! Simulated water temperatures 
 !   
   real, dimension(:),   allocatable   :: T_head,T_trib 
