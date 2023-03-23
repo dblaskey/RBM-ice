@@ -52,6 +52,8 @@ allocate(ICE(heat_cells))
 ICE = 100.
 allocate(ice_temp(nreach,0:ns_max,2))
 ice_temp = 0.001
+allocate(snow_temp(nreach,0:ns_max,2))
+snow_temp = 0.001
 allocate(ice_thick(nreach,0:ns_max,2))
 ice_thick = -0.001!
 !
