@@ -16,7 +16,7 @@ real                      :: cndctvy,delta_ice,LW_back,LW_in,SW_in
 real                      :: dvsr,delta_Temp
 real                      :: T_B,T_ice,T_p,T_p_cubed,T_riv,T_srfc
 real                      :: cndctvySI,snow_cndctvy,thickS,T_S
-real                      :: delta_snow,lvfs 
+real                      :: delta_snow,lvfs, 
 !
 real,parameter            :: thick0 = 0.8
 !
@@ -38,10 +38,10 @@ real,parameter            :: thick0 = 0.8
   Sens_Heat = rho_air*cp_air*Ch_Cg*wind(ncell)*(dbt(ncell)-T_srfc)
 !
 
-if (snow_thick(nr,ns,n1) .gt. 0.01) then 
+if (snow_p .gt. 0.01) then 
   SW_in = (1.0-snow_albedo)*QNS(ncell)
   cndctvySI = ice_cndctvy*snow_cndctvy/(thick0*snow_cndctvy)               & 
-              + thickS*ice_cndctvy
+              + snow_p*ice_cndctvy
   dvsr = 4.0*epsilon*Stfn_Bltz*T_p_cubed + cndctvySI 
   delta_Temp = (Sens_Heat + Ltnt_Heat + LW_in + SW_in - LW_back           &
             +cndctvySI*(T_B-T_srfc))/dvsr !THIS IS NOT RIGHT, need to change snow temperature not ice temp
@@ -53,8 +53,8 @@ if (snow_thick(nr,ns,n1) .gt. 0.01) then
   if (snow_temp(nr,ns,n2) .ge. T_S) then 
     ! NEED TO DOUBLE CHECK THIS IS RIGHT
     delta_snow = dt_comp*(Sens_Heat + Ltnt_Heat + LW_in + SW_in - LW_back)/lvfs
-    snow_thick(nr,ns,n2) = snow_thick(nr,ns,n1) - delta_snow                
-    snow_thick(nr,ns,n2) = AMAX1(snow_thick(nr,ns,n2),0.0)
+    thickS = snow_p - delta_snow                
+    thickS = AMAX1(snow_p,0.0)
   else !THIS DOESN'T LOOK RIGHT EITHER
     T_ice = ice_temp(nr,ns,n1)
     T_riv = temp(nr,ns,n1)
